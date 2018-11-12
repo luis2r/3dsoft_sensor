@@ -1,4 +1,0 @@
-std_msgs/Empty empty
----
-geometry_msgs/Point pose
-

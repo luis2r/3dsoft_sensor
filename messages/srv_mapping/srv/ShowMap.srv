@@ -1,5 +1,0 @@
-std_msgs/Empty req
-
----
-
-std_msgs/Bool resp
