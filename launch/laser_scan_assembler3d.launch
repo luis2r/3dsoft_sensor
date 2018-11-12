@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <node type="laser_scan_assembler" pkg="laser_assembler"
+        name="my_assembler1">
+    <remap from="scan" to="scan1"/>
+    <param name="max_scans" type="int" value="400" />
+    <param name="camera" type="string" value="axis" />
+    <param name="ignore_laser_skew" type="bool" value="false" />
+  </node>
+
+  <node type="laser_scan_assembler" pkg="laser_assembler"
+        name="my_assembler2">
+    <remap from="scan" to="scan2"/>
+    <param name="max_scans" type="int" value="400" />
+    <param name="cam2" type="string" value="axis" />
+    <param name="ignore_laser_skew" type="bool" value="false" />
+  </node>
+</launch>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <node pkg="laser_scan_splitter" type="laser_scan_splitter_node" name="splitter" output="screen">
+    <param name="sizes" value="256 256"/>
+    <param name="topics" value="scan1 scan2"/>
+    <param name="frames" value="laser laser "/>
+  </node>
+</launch>
+

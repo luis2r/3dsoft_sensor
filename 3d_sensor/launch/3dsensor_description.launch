@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+        <param name="robot_description" command="cat $(find 3d_sensor)/model.xml" />
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+        <node name="state_publisher" pkg="3d_sensor" type="state_publisher" />
+</launch>

@@ -1,0 +1,5 @@
+std_msgs/Empty empty
+
+---
+
+msgs_mapping/TopologicalMap map
