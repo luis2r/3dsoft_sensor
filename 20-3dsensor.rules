@@ -1,0 +1,3 @@
+ACTION=="add", SUBSYSTEM=="tty", ATTRS{idProduct}=="7523", ATTRS{idVendor}=="1a86", SYMLINK+="ttyARDUINO", MODE="0666"
+ACTION=="add", SUBSYSTEM=="tty", KERNEL=="ttyACM?", ATTRS{manufacturer}=="Hokuyo Data Flex for USB", SYMLINK+="ttyHokuyo", MODE="0666"
+

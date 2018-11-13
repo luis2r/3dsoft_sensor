@@ -15,3 +15,5 @@ roslaunch cloud_scan_assembler.launch
 rosrun periodic_snapshotter periodic_snapshotter_node1
 rosrun periodic_snapshotter periodic_snapshotter_node2
 rosrun icp_calib icp_calib_icp_two_clouds_ros
+
+rosrun cv_camera cv_cameraode
