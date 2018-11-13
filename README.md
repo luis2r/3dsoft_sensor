@@ -3,10 +3,6 @@
 
 roscore
 
-sudo chmod 777 /dev/ttyUSB0
-
-sudo chmod 777 /dev/ttyACM0
-
 rosrun rosserial_python serial_node.py /dev/ttyARDUINO
 
 roslaunch 3d_sensor 3dsensor_description.launch
