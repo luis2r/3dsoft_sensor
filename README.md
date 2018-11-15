@@ -13,6 +13,8 @@ rosrun laser_scan_splitter laser_scan_splitter_node
 
 rosrun motor-laser-calib motor-laser-calib_node
 
+cd ~/catkin_ws/src/3dsoft_sensor
+
 roslaunch cloud_scan_assembler.launch
 
 rosrun periodic_snapshotter periodic_snapshotter_node1
