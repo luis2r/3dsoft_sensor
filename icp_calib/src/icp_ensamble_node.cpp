@@ -14,13 +14,13 @@ int main(int argc, char **argv)
 	pcl::PointCloud<pcl::PointXYZ> Final1;
 	pcl::PointCloud<pcl::PointXYZ> cloud_a, cloud_b, cloud_c;
 	pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud (new pcl::PointCloud<pcl::PointXYZ> ());
-	ros::Publisher  pub_out_cloud = nh.advertise<pcl::PointCloud<pcl::PointXYZ> > ("cloud", 1, false);
+	ros::Publisher  pub_out_cloud = nh.advertise<pcl::PointCloud<pcl::PointXYZ> > ("ensambled_cloud", 1, false);
 
 	ros::Rate loop_rate(0.5);
 	while (nh.ok())
 	{
-		const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud1_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("assembled_cloud_a");
-		const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud2_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("assembled_cloud_b");
+		const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud1_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("cloud1");
+		const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud2_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("cloud2");
 		//std_msgs::StringConstPtr msg = ros::topic::waitForMessage<std_msgs::String>("/chatter");
 		if (!cloud1_subw->empty() and !cloud2_subw->empty()  )
 		{
