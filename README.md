@@ -1,6 +1,8 @@
 # 3dsoft_sensor
 #3D sensor, based on hokuyo urg and stereo camera fusion
+
 ####calibration#####
+
 
 rosrun rosserial_python serial_node.py /dev/ttyARDUINO
 
@@ -24,7 +26,11 @@ rosrun icp_calib icp_calib_icp_two_clouds_ros
 
 rosrun cv_camera cv_cameraode
 
+
+
 ######## Run fusion #########
+
+
 rosrun rosserial_python serial_node.py /dev/ttyARDUINO
 
 roslaunch 3d_sensor 3dsensor_description.launch
