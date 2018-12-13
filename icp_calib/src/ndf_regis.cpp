@@ -79,7 +79,30 @@ int main(int argc, char **argv)
 
     std::cout << "Normal Distributions Transform has converged:" << ndt.hasConverged ()
               << " score: " << ndt.getFitnessScore () << std::endl;
+    std::cout << ndt.getFinalTransformation() << std::endl;
 
+
+
+
+
+
+////////////////////////align two point clouds//////////////////////////
+  // Eigen::Matrix4f transform_1 = Eigen::Matrix4f::Identity();
+  Eigen::Matrix4f transform_1 = ndt.getFinalTransformation();
+  // // Define a rotation matrix (see https://en.wikipedia.org/wiki/Rotation_matrix)
+  // float theta = M_PI/4; // The angle of rotation in radians
+  // transform_1 (0,0) = cos (theta);
+  // transform_1 (0,1) = -sin(theta);
+  // transform_1 (1,0) = sin (theta);
+  // transform_1 (1,1) = cos (theta);
+  // //    (row, column)
+
+  // Define a translation of 2.5 meters on the x axis.
+  // transform_1 (0,3) = 2.5;
+
+  // Print the transformation
+  printf ("Method #1: using a Matrix4f\n");
+  std::cout << transform_1 << std::endl;
     // Transforming unfiltered, input cloud using found transform.
     pcl::transformPointCloud (*cloud1_subw, *output_cloud, ndt.getFinalTransformation ());
 
