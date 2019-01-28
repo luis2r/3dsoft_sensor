@@ -1,0 +1,17 @@
+<!-- -->
+<launch>
+
+  <group ns="/stereo">
+  <!-- <param name="/bumblebeeXB3/calibrationDir" value="$(find split_rectify_stereo)/calibration/" />      Calibration files directory -->	
+  <node pkg="fake_sync" type="fake_sync" name="fake_sync" output="screen" > 
+
+
+
+
+	<param name="narrow/left/camera_info_url" value="file:///home/luis/.ros/camera_info/left.yaml"/>
+	<param name="narrow/right/camera_info_url"  value="file:///home/luis/.ros/camera_info/right.yaml" />
+  </node>
+  </group>
+
+</launch>
+

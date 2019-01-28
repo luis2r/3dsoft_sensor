@@ -1,0 +1,25 @@
+xb3 (serial 12503122)
+
+640x480 - wide
+Focal: 505.649902
+base: 0.240044
+centerrow: 243.153763
+centercol:321.798889
+
+1280x960 - wide
+Focal: 1011.299805
+base: 0.240044
+centerrow: 486.807526
+ centercol:644.097778
+
+640-480 short 
+Focal: 486.127350
+base: 0.120053
+centerrow: 233.897446
+ centercol:322.664795
+ 
+1280 - short
+Focal: 972.254700
+base: 0.120053
+centerrow: 468.294891
+ centercol:645.829590
