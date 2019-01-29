@@ -28,6 +28,7 @@ rosrun cv_camera cv_cameraode
 
 
 roslaunch usb_cam.launch
+
 rosrun camera_calibration cameracalibrator.py --approximate 0.1 --size 8x6 --square 0.0245 right:=/camera2/usb_cam2/image_raw left:=/camera1/usb_cam1/image_raw right_camera:=/camera2/usb_cam2 left_camera:=/camera1/usb_cam1
 
 ######## Run fusion #########
@@ -46,3 +47,5 @@ rosrun motor-laser-calib motor-laser-calib_node
 rosrun icp_calib ensamble_node 
 
 ######## stereo #########
+
+roslaunch elas_ros elas_with_logitech.launch
