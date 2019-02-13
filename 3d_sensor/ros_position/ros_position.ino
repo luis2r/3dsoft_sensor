@@ -21,7 +21,7 @@ unsigned long encodertotal = 0;
 unsigned long count = 0;
 unsigned long  countAnt = 0;
 
-int speed_req = 4;                            // speed (Set Point)
+int speed_req = 2;                            // speed (Set Point)
 
 int speed_act = 0;                              // speed (actual value)
 int PWM_val = 0;                                // (25% = 64; 50% = 127; 75% = 191; 100% = 255)
