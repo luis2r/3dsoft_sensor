@@ -19,8 +19,8 @@ int main(int argc, char **argv)
 	ros::Rate loop_rate(0.5);
 	while (nh.ok())
 	{
-		const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud1_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("cloud1");
-		const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud2_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("cloud2");
+		const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud1_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("cloud1_halfscan_a");
+		const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud2_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("cloud2_halfscan_b");
 		//std_msgs::StringConstPtr msg = ros::topic::waitForMessage<std_msgs::String>("/chatter");
 		if (!cloud1_subw->empty() and !cloud2_subw->empty()  )
 		{
@@ -35,26 +35,32 @@ int main(int argc, char **argv)
 		// ////////////////////////align two point clouds//////////////////////////
 		Eigen::Matrix4f transform_1 = Eigen::Matrix4f::Identity();
 		// // Define a rotation matrix (see https://en.wikipedia.org/wiki/Rotation_matrix)
-		transform_1 (0,0) = 0.998911;
-		transform_1 (0,1) = 0.0276984;
-		transform_1 (0,2) = -0.0375561;
-		transform_1 (0,3) = -0.00488246;
+		transform_1 (0,0) = 0.97566;
+		transform_1 (0,1) = 0.158887;
+		transform_1 (0,2) = -0.151135;
+		transform_1 (0,3) = 0.0163712;
 
-		transform_1 (1,0) = -0.0296548;
-		transform_1 (1,1) =  0.998177;
-		transform_1 (1,2) =  -0.0525759;
-		transform_1 (1,3) =  0.0277208;
+		transform_1 (1,0) = -0.0994964;
+		transform_1 (1,1) =  0.934936;
+		transform_1 (1,2) = 0.340582;
+		transform_1 (1,3) =  0.0599929;
 
-		transform_1 (2,0) = 0.0360313;
-		transform_1 (2,1) =  0.0536325;
-		transform_1 (2,2) = 0.99791;
-		transform_1 (2,2) = -0.0421599;
+		transform_1 (2,0) = 0.195416;
+		transform_1 (2,1) = -0.317255;
+		transform_1 (2,2) = 0.927988;
+		transform_1 (2,3) = -0.0980514;
 		// //    (row, column)
 		//  Result of calibration method motor-laser
 		//   0.998911   0.0276984  -0.0375561 -0.00488246
 		// -0.0296548    0.998177  -0.0525759   0.0277208
 		//  0.0360313   0.0536325     0.99791  -0.0421599
 		//          0           0           0           1
+
+		// 0.97566      0.158887  -0.151135  0.0163712
+		// -0.0994964   0.934936   0.340582  0.0599929
+  // 		0.195416    -0.317255   0.927988 -0.0980514
+  //       0            0          0         1
+
 
 		// Print the transformation
 		printf ("Method #1: using a Matrix4f\n");

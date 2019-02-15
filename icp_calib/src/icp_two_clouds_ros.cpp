@@ -6,6 +6,9 @@
 #include <pcl/registration/icp.h>
 
 
+#include <pcl/filters/passthrough.h>
+
+
 
 int main(int argc, char **argv) 
 {
@@ -24,8 +27,10 @@ int main(int argc, char **argv)
     
     // boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> > cloud1_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("assembled_cloud_a");
     // boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> > cloud2_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("assembled_cloud_b");
-    const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud1_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("assembled_cloud_a");
-    const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud2_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("assembled_cloud_b");
+    // const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud1_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("assembled_cloud_a");
+    // const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud2_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("assembled_cloud_b");
+    const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud1_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("cloud1_halfscan_a");
+    const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud2_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("cloud2_halfscan_b");
 
     //std_msgs::StringConstPtr msg = ros::topic::waitForMessage<std_msgs::String>("/chatter");
     if (!cloud1_subw->empty() and !cloud2_subw->empty()  )
@@ -37,8 +42,8 @@ int main(int argc, char **argv)
       std::cout<<"No message!"<<std::endl;
     }
 
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in (new pcl::PointCloud<pcl::PointXYZ>);
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_out (new pcl::PointCloud<pcl::PointXYZ>);  
+    pcl::PointCloud<pcl::PointXYZ>::Ptr halfcloud1 (new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::PointCloud<pcl::PointXYZ>::Ptr halfcloud2 (new pcl::PointCloud<pcl::PointXYZ>);  
     // msg->header.frame_id = "some_tf_frame";
 
   // // Fill in the CloudIn data
@@ -69,11 +74,28 @@ int main(int argc, char **argv)
   //     std::cout << "    " << cloud_out->points[i].x << " " << cloud_out->points[i].y << " " << cloud_out->points[i].z << std::endl;
 
 
+// Create the filtering object
+    pcl::PassThrough<pcl::PointXYZ> ptfiltercloud1; // Initializing with true will allow us to extract the removed indices
+    pcl::PassThrough<pcl::PointXYZ> ptfiltercloud2;
+    
+    ptfiltercloud1.setInputCloud (cloud1_subw);
+    ptfiltercloud1.setFilterFieldName ("z");
+    ptfiltercloud1.setFilterLimits (0.0, 10.0);
+    ptfiltercloud1.setNegative (false);
+    ptfiltercloud1.filter (*halfcloud1);
+    // another half cloud
+    ptfiltercloud1.setNegative (true);
+    ptfiltercloud1.filter (*halfcloud2);
+    // cloud_filtered.swap (halfcloud1);
+
+
+
+
     pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
     //int iterations = 1;
     //icp.setMaximumIterations (iterations);
     //icp.setMaxCorrespondenceDistance (0.05);
-    icp.setMaxCorrespondenceDistance (0.5);
+    icp.setMaxCorrespondenceDistance (0.050);
 
     icp.setInputSource(cloud1_subw);
     icp.setInputTarget(cloud2_subw);

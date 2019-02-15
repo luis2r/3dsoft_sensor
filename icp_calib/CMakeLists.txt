@@ -137,6 +137,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(ndf_regis_node src/ndf_regis.cpp)
 add_executable(ensamble_node src/icp_ensamble_node.cpp)
+add_executable(concatenatescans_node src/concatenatescans.cpp)
 add_executable(${PROJECT_NAME}_icp_two_clouds_ros src/icp_two_clouds_ros.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -152,6 +153,8 @@ add_executable(${PROJECT_NAME}_icp_two_clouds_ros src/icp_two_clouds_ros.cpp)
 target_link_libraries(ndf_regis_node   ${catkin_LIBRARIES})
 
 target_link_libraries(ensamble_node   ${catkin_LIBRARIES})
+
+target_link_libraries(concatenatescans_node   ${catkin_LIBRARIES})
 
 target_link_libraries(${PROJECT_NAME}_icp_two_clouds_ros   ${catkin_LIBRARIES})
 #############

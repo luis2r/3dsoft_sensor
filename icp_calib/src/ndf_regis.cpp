@@ -22,8 +22,11 @@ int main(int argc, char **argv)
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud (new pcl::PointCloud<pcl::PointXYZ> ());
 
-    const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud1_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("assembled_cloud_a");
-    const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud2_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("assembled_cloud_b");
+    // const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud1_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("assembled_cloud_a");
+    // const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud2_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("assembled_cloud_b");
+
+    const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud1_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("cloud1_halfscan_a");
+    const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud2_subw =  ros::topic::waitForMessage<pcl::PointCloud<pcl::PointXYZ> > ("cloud2_halfscan_b");
     //std_msgs::StringConstPtr msg = ros::topic::waitForMessage<std_msgs::String>("/chatter");
     if (!cloud1_subw->empty() and !cloud2_subw->empty()  )
     {
@@ -53,14 +56,14 @@ int main(int argc, char **argv)
 
     // Setting scale dependent NDT parameters
     // Setting minimum transformation difference for termination condition.
-    ndt.setTransformationEpsilon (0.01);
+    ndt.setTransformationEpsilon (0.001);
     // Setting maximum step size for More-Thuente line search.
-    ndt.setStepSize (0.1);
+    ndt.setStepSize (0.05);
     //Setting Resolution of NDT grid structure (VoxelGridCovariance).
     ndt.setResolution (1.0);
 
     // Setting max number of registration iterations.
-    ndt.setMaximumIterations (35);
+    ndt.setMaximumIterations (100);
 
     // Setting point cloud to be aligned.
     ndt.setInputSource (cloud1_subw);
