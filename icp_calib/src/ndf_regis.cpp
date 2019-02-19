@@ -4,6 +4,7 @@
 #include <iostream>
 #include <pcl/point_types.h>
 //#include <pcl/registration/icp.h>
+#include <pcl/filters/approximate_voxel_grid.h>
 
 
 #include <pcl/registration/ndt.h>
@@ -42,14 +43,15 @@ int main(int argc, char **argv)
     // pcl::PointCloud<pcl::PointXYZ>::Ptr target_cloud (new pcl::PointCloud<pcl::PointXYZ>);
     // pcl::PointCloud<pcl::PointXYZ>::Ptr input_cloud (new pcl::PointCloud<pcl::PointXYZ>);
     
-    // // Filtering input scan to roughly 10% of original size to increase speed of registration.
-    // pcl::PointCloud<pcl::PointXYZ>::Ptr filtered_cloud (new pcl::PointCloud<pcl::PointXYZ>);
-    // pcl::ApproximateVoxelGrid<pcl::PointXYZ> approximate_voxel_filter;
-    // approximate_voxel_filter.setLeafSize (0.2, 0.2, 0.2);
-    // approximate_voxel_filter.setInputCloud (input_cloud);
-    // approximate_voxel_filter.filter (*filtered_cloud);
-    // std::cout << "Filtered cloud contains " << filtered_cloud->size ()
-    //           << " data points from room_scan2.pcd" << std::endl;
+    // Filtering input scan to roughly 10% of original size to increase speed of registration.
+    pcl::PointCloud<pcl::PointXYZ>::Ptr filtered_cloud (new pcl::PointCloud<pcl::PointXYZ>);
+    
+    pcl::ApproximateVoxelGrid<pcl::PointXYZ> approximate_voxel_filter;
+    approximate_voxel_filter.setLeafSize (0.02, 0.02, 0.02);
+    approximate_voxel_filter.setInputCloud (cloud1_subw);
+    approximate_voxel_filter.filter (*filtered_cloud);
+    std::cout << "Filtered cloud contains " << filtered_cloud->size ()
+              << " data points from cloud1_halfscan_a topic" << std::endl;
 
     // Initializing Normal Distributions Transform (NDT).
     pcl::NormalDistributionsTransform<pcl::PointXYZ, pcl::PointXYZ> ndt;
@@ -58,15 +60,15 @@ int main(int argc, char **argv)
     // Setting minimum transformation difference for termination condition.
     ndt.setTransformationEpsilon (0.001);
     // Setting maximum step size for More-Thuente line search.
-    ndt.setStepSize (0.05);
+    ndt.setStepSize (0.01);
     //Setting Resolution of NDT grid structure (VoxelGridCovariance).
     ndt.setResolution (1.0);
 
     // Setting max number of registration iterations.
-    ndt.setMaximumIterations (100);
+    ndt.setMaximumIterations (5000);
 
     // Setting point cloud to be aligned.
-    ndt.setInputSource (cloud1_subw);
+    ndt.setInputSource (filtered_cloud);
     // Setting point cloud to be aligned to.
     ndt.setInputTarget (cloud2_subw);
 
@@ -132,14 +134,14 @@ int main(int argc, char **argv)
     cloud_b  = *cloud2_subw;
     cloud_c += cloud_b;
 
-  ros::Rate loop_rate(4);
-  while (nh.ok())
-  {
-    ROS_INFO("Published Final Cloud with %u points", (uint32_t)(Final1.points.size ())) ;
+  // ros::Rate loop_rate(4);
+  // while (nh.ok())
+  // {
+  //   ROS_INFO("Published Final Cloud with %u points", (uint32_t)(Final1.points.size ())) ;
 
-    pub_cloudICP.publish (cloud_c);
+  //   pub_cloudICP.publish (cloud_c);
 
-    ros::spinOnce ();
-    loop_rate.sleep ();
-  }
+  //   ros::spinOnce ();
+  //   loop_rate.sleep ();
+  // }
 }

@@ -71,7 +71,9 @@ void LaserToCloud::laser1_callback(const sensor_msgs::LaserScan::ConstPtr& scan1
 
   sensor_msgs::PointCloud2 cloud1;
 
-  projector.transformLaserScanToPointCloud("axis",*scan1_in, cloud1,listener);
+  // projector.transformLaserScanToPointCloud("axis",*scan1_in, cloud1,listener);
+  projector.transformLaserScanToPointCloud("laser",*scan1_in, cloud1,listener);
+
 
   // Do something with cloud.
 
@@ -107,7 +109,8 @@ void LaserToCloud::laser2_callback(const sensor_msgs::LaserScan::ConstPtr& scan2
 
   sensor_msgs::PointCloud2 cloud2;
 
-  projector.transformLaserScanToPointCloud("axis",*scan2_in, cloud2,listener);
+  // projector.transformLaserScanToPointCloud("axis",*scan2_in, cloud2,listener);
+  projector.transformLaserScanToPointCloud("laser",*scan2_in, cloud2,listener);
 
   // Do something with cloud.
 

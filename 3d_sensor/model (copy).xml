@@ -26,11 +26,6 @@
   </collision>
 </link>
 
-
-
-
-
-<!--
 <link name="camera">
   <inertial>
     <mass value="1"/>
@@ -58,19 +53,12 @@
 </link>
 
 <joint name="cameraconnect" type="fixed">
-  <origin xyz="0 -.30 0.20"  rpy="-1.67 0 -1.57"/>
+  <origin xyz="0 .30 0.20" rpy="-1.57 0 -1.57"/>
   <parent link="axis"/>
   <child link="camera"/>
 </joint>
--->
 
-
-
-
-
-
-
-<link name="camera">
+<link name="cam2">
   <inertial>
     <mass value="1"/>
     <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
@@ -96,10 +84,10 @@
   </collision>
 </link>
 
-<joint name="cameraconnect" type="fixed">
-  <origin xyz="0 0.05 .120" rpy="-1.45 0 -1.60"/>
+<joint name="cam2connect" type="fixed">
+  <origin xyz="0 -.30 0.20"  rpy="-1.57 0 -1.57"/>
   <parent link="axis"/>
-  <child link="camera"/>
+  <child link="cam2"/>
 </joint>
 <!--
 <link name="body">
@@ -134,46 +122,6 @@
   <limit upper="0" lower="-.5" effort="10" velocity="10" />
 </joint>
 -->
-<link name="zero">
-  <inertial>
-    <mass value="1"/>
-    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
-    <origin/>
-  </inertial>
-
-  <visual>
-    <origin xyz="0 0 0" />
-    <geometry>
-      <box size=".10 .10 .10" />
-    </geometry>
-    <material name="white">
-      <color rgba="1 1 1 1"/>
-    </material>
-  </visual>
-
-  <collision>
-    <origin xyz="0 0 0" />
-    <geometry>
-      <box size=".10 .10 .10" />
-    </geometry>
-    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
-  </collision>
-</link>
-
-<joint name="swivel" type="continuous">
-  <origin xyz="0.15 0 0"rpy="0.45 0 0" />
-  <axis xyz="1 0 0" />
-  <parent link="axis"/>
-  <child link="zero"/>
-</joint>
-
-
-
-
-
-
-
-
 <link name="laser">
   <inertial>
     <mass value="1"/>
@@ -200,10 +148,79 @@
   </collision>
 </link>
 
-<joint name="zeroconnect" type="fixed">
-  <origin xyz="0 0 0.028"  rpy="0 0 -0.051"/>
-  <parent link="zero"/>
+<joint name="swivel" type="continuous">
+  <origin xyz="0.5 0 0" />
+  <axis xyz="1 0 0" />
+  <parent link="axis"/>
   <child link="laser"/>
+</joint>
+
+<link name="laser1">
+  <inertial>
+    <mass value="1"/>
+    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
+    <origin/>
+  </inertial>
+
+  <visual>
+    <origin xyz="0 0 0" />
+    <geometry>
+      <box size=".10 .10 .10" />
+    </geometry>
+    <material name="white">
+      <color rgba="1 1 1 1"/>
+    </material>
+  </visual>
+
+  <collision>
+    <origin xyz="0 0 0" />
+    <geometry>
+      <box size=".10 .10 .10" />
+    </geometry>
+    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+  </collision>
+</link>
+
+<joint name="laser1connect" type="fixed">
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <parent link="laser"/>
+  <child link="laser1"/>
+</joint>
+
+
+
+
+
+<link name="laser2">
+  <inertial>
+    <mass value="1"/>
+    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
+    <origin/>
+  </inertial>
+
+  <visual>
+    <origin xyz="0 0 0" />
+    <geometry>
+      <box size=".10 .10 .10" />
+    </geometry>
+    <material name="white">
+      <color rgba="1 1 1 1"/>
+    </material>
+  </visual>
+
+  <collision>
+    <origin xyz="0 0 0" />
+    <geometry>
+      <box size=".10 .10 .10" />
+    </geometry>
+    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+  </collision>
+</link>
+
+<joint name="laser2connect" type="fixed">
+  <origin xyz="0 0 0.15" rpy="0 0 -0.10"/>
+  <parent link="laser"/>
+  <child link="laser2"/>
 </joint>
 <!--
 <link name="rod">

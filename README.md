@@ -26,6 +26,7 @@ rosrun icp_calib icp_calib_icp_two_clouds_ros
 
 rosrun cv_camera cv_cameraode
 
+cd /home/luis/catkin_ws/src/3dsoft_sensor/launch
 
 roslaunch usb_cam.launch
 
